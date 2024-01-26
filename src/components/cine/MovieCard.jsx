@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { movieContext } from "../../context";
 import { getImgUrl } from "../../utils/cine-utility";
 import MovieDetailsModal from "./MovieDetailsModal";
 import Rating from "./Rating";
@@ -8,6 +9,8 @@ import Rating from "./Rating";
 export default function MovieCard({ movie }) {
   const [showModal, setShowModal] = useState(false);
   const [selectedMovie, setSelectedMovie] = useState(null);
+
+  const { cardData, setCardData } = useContext(movieContext);
 
   //handlers here///
 
@@ -19,6 +22,21 @@ export default function MovieCard({ movie }) {
   const handleSelectedMovie = (movie) => {
     setSelectedMovie(movie);
     setShowModal(true);
+  };
+
+  const handleAddToCard = (e, movie) => {
+    e.stopPropagation();
+    const found = cardData.find((item) => {
+      return item.id === movie.id;
+    });
+
+    if (!found) {
+      setCardData([...cardData, movie]);
+    } else {
+      console.error(
+        `The Movie ${movie.title} has been added to the card already`
+      );
+    }
   };
 
   return (
@@ -42,6 +60,7 @@ export default function MovieCard({ movie }) {
             <a
               className="bg-primary rounded-lg py-2 px-5 flex items-center justify-center gap-2 text-[#171923] font-semibold text-sm"
               href="#"
+              onClick={(e) => handleAddToCard(e, movie)}
             >
               <img src="./assets/tag.svg" alt="" />
               <span>$ {movie?.price} | Add to Cart</span>
