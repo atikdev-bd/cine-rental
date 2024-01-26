@@ -4,15 +4,15 @@ import { movieContext } from "../../context";
 import { getImgUrl } from "../../utils/cine-utility";
 
 export default function MovieDetailsModal({ movie, onClose }) {
-  const { cardData, setCardData } = useContext(movieContext);
+  const { cartData, setCartData } = useContext(movieContext);
 
-  const handleAddToCard = (movie) => {
-    const found = cardData.find((item) => {
+  const handleAddToCart = (movie) => {
+    const found = cartData.find((item) => {
       return item.id === movie.id;
     });
 
     if (!found) {
-      setCardData([...cardData, movie]);
+      setCartData([...cartData, movie]);
       onClose()
     } else {
       console.error(
@@ -45,7 +45,7 @@ export default function MovieDetailsModal({ movie, onClose }) {
               </p>
               <div className="grid lg:grid-cols-2 gap-2">
                 <a
-                  onClick={() => handleAddToCard(movie)}
+                  onClick={() => handleAddToCart(movie)}
                   className="bg-primary rounded-lg py-2 px-5 flex items-center justify-center gap-2 text-[#171923] font-semibold text-sm"
                   href="#"
                 >

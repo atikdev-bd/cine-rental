@@ -6,10 +6,10 @@ import MovieList from "./components/cine/MovieList";
 import { movieContext } from "./context";
 
 function App() {
-  const [cardData, setCardData] = useState([])
+  const [cartData, setCartData] = useState([])
   return (
     <>
-      <movieContext.Provider value={{cardData, setCardData}}>
+      <movieContext.Provider value={{cartData, setCartData}}>
         <Header />
         <main>
           <div className="container grid lg:grid-cols-[218px_1fr] gap-[3.5rem]">
